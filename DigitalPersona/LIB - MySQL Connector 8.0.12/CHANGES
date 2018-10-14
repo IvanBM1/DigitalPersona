@@ -1,0 +1,130 @@
+8.0.12
+- MySqlX: Created the MySqlXConnectionStringBuilder class to handle X Protocol/X DevAPI specific connection options.
+  X Protocol/X DevAPI connection options have been removed from the MySqlConnectionStringBuilder class (WL11846).
+- MySqlX: Modified multiple elements as an effort to better standarize MySQL Document Store operations with other
+  MySQL connectors (WL11843).
+- MySqlX: Added the ColumnCount and ColumnNames properties to SqlResult and RowResult objects (Oracle Bug #27732175).
+- MySqlX: The RecordsAffected property available in Result objects has been deprecated and replaced with the
+  AffectedItemsCount property. The WarningCount property has been added to Result objects (Oracle Bug #27732235).
+- MySqlX: Added the ArrayInsert() and ArrayAppend() methods to the Modify() chain, enhancing array manipulation
+  (Oracle Bug #27732098).
+- Fixed a bug that prevented the TreatTinyAsBoolean connection option from being set when calling the
+  MySqlCommand.Prepare method (MySQL Bug #88472, Oracle Bug #27113566).
+- Fix to correct wrong result type returned by MySqlDataReader after null found (MySQL Bug #78917, Oracle Bug #22101727).
+- Contribution added: Fixing encoding (MySQL Bug #90316, Oracle Bug #27818822). Thanks to Kleber Syd Moraes da Silva for the contribution.
+- Contribution added: Fixing CONCURRENCYCHECK and DATABASEGENERATEDOPTION.COMPUTED (MySQL Bug #91064, Oracle Bug #28095165). Thanks to Tony OHagan for the contribution.
+
+
+8.0.11
+- Updated the RSA key encryption padding to RSA_PKCS1_OAEP_PADDING for the caching_sha2_password authentication plugin
+  when connecting to server 8.0.5 (or later) (WL11618).
+- Fix for sockets stay in CLOSE_WAIT when using SSL (MySQL Bug #75022, Oracle Bug #20393654).
+- Fix for unexpected ColumnSize for CHAR(63) and BLOB columns in GetSchemaTable (MySQL Bug #87868, Oracle Bug #26876582)
+- Fix to correct unexpected ColummSize and IsLong values returned by MySqlDataReader.GetSchemaTable when using LongText and LongBlob data types. (MySQL Bug #87876, Oracle Bug #26876592)
+- Fix to correct the wrong NumericPrecision value returned by MySqlDataReader.GetSchemaTable when NumericScale is 0 for Decimal data types. (MySQL Bug #88058, Oracle Bug #26954812)
+- Added support for MySQL 8 server features (WL11326).
+- Fix to avoid raising an exception during the DbContext setup. Thanks to Cédric Luthi for his contribution. (MySQL Bug #89134, Oracle Bug #25185319)
+- Fixed a problem in which NuGet packages could not be installed from within Visual Studio 2015 (MySQL Bug #88838, Oracle Bug #27251839).
+- Fix for bug: could not load file or assembly MySql.ConnectorInstaller when using web providers (MySQL Bug #88544, Oracle Bug #27457398).
+- Fix to enable the creation of an Entity Framework model from a database, also called the database-first approach (MySQL Bug 79163, Oracle Bug #22173048).
+- Fixed a bug that prevented making a connection to MySQL when using TLS/SSL for the MySqlX URI scheme (Oracle Bug #24510329).
+- MySqlX: Added support for SHA256_MEMORY authentication (WL11624).
+- MySqlX: Added support for locking read concurrency with NOWAIT and SKIP LOCKED (WL11307).
+- MySqlX: New server document _id generation support for MySQL 8.0.5 server and higher. Removed client-side _id generation (WL11421).
+
+
+8.0.10
+- MySqlX: Replaced the current implementation of the CreateIndex() method with new syntax that enhances the
+  creation of indexes (WL11131).
+- MySqlX: Added the Patch() method, which provides extended functionality for updating documents and elements
+  within documents (WL11133).
+- MySqlX: Added support for setting transaction savepoints (WL11135).
+- MySqlX: Removed support for the Configuartion API (WL11362).
+- MySqlX: Removed support for creating, modifying and dropping Views (WL11306).
+- MySqlX: Fixed bug that prevented Plain authentication from setting the default database provided as part
+  of the connection string (Bug #88427, Oracle Bug #27098974).
+- Fix for sockets stay in CLOSE_WAIT when using SSL (MySQL Bug #75022, Oracle Bug #20393654).
+- Added support for connections to the server using an account that authenticates with the caching_sha2_password
+  plugin. Added the AllowPublicKeyRetrieval connection option used to allow retrieval of RSA keys from the
+  server (WL11081).
+- Added support for .Net Core 2.0 (WL-11394).
+- Added support for EF Core 2.0 (WL-11395).
+
+
+8.0.9
+- MySqlX: Set utf8mb4 as the default charset (WL10562).
+- MySqlX: Updated all DropX() methods to return void, execute without the need to call Execute() and to succeed
+  even if the object to be droppped does not already exist (WL10563).
+- MySqlX: Added the LockShared() and LockExclusive() methods to Table.Select() and Collection.Find() command
+  chains, allowing safe transactional document and row updates (WL10948).
+- MySqlX: Added support for setting the priority of hosts during client-side failover (WL10998).
+- MySqlX: Extended the IN operator to support operations of the type:
+  (compExpr ["NOT"] "IN" compExpr | compExpr ["NOT"] "IN" "(" argsList ")") (WL10947).
+- MySqlX: Added ReplaceOne(), AddOrReplaceOne(), GetOne() and RemoveOne() direct-execute methods to collections
+  (WL10949).
+- MySqlX: Added support for Unix sockets (WL10201).
+- MySQLX: Added support to connect to the server using an account that authenticates with the sha256_password
+  plugin. Added the auth connection option for specifying the authentication mechanism to be used. Set PLAIN as
+  the default authentication mechanism whenever TLS is enabled or Unix sockets are being used (WL10595).
+- Added support to connect to the server using an account that authenticates with the sha256_password plugin. (WL10595).
+- Added support for Unix sockets in dotnet core (WL10613)
+- EF Core: Added async support (WL10615).
+- Removed connection string options 'autoenlist' and 'includesecurityasserts' for Dotnet core (WL10564).
+- EF Core: Added support for Explicit loading (WL9768).
+- EF Core: Added support for multiple schemas (WL10668).
+- The following connection string options will raise a PlatformNotSupportedException when used in Dotnet Core:
+  sharedmemoryname, integratedsecurity, pipe, logging, useusageadvisor, useperformancemonitor, interactivesession,
+  replication. They will be implemented in future versions.
+
+
+8.0.8
+- MySqlX: Updated Collection's Modify() and Remove() methods to always require a search condition (WL10739).
+- MySqlX: Updated the generated UUID for inserted documents to have its components in reversed order (WL10202).
+- Removed ssl-enable connection option. Set "Required" as the default value for ssl-mode (WL10559).
+- MySqlX: Added client-side failover when establishing a connection (WL9980).
+- MySqlX: Removed XSession and renamed NodeSession to Session (WL10561).
+
+
+7.0.7
+- MySqlX: Fixed configuration handling paths in Linux and MacOS (Oracle Bug #25423724).
+- MySqlX: Fixed Dispose error in Linux and MacOS (Oracle Bug #25423700).
+- MySqlX: Added support for creating, modifying, and dropping Views (WL10034).
+- MySqlX: Added support for IPv6 (WL10080).
+- MySqlX: Added validations to SessionConfigManager methods (Oracle Bug #25598617).
+
+
+7.0.6
+- MySqlX: Fixed schema.GetTables() and schema.GetCollections() (Oracle Bug #24385662).
+- EFCore: MySQLHistoryRepository has not implemented get_ExistsSql() (Oracle Bug #24804771).
+- EFCore: Cannot use datetimeoffset in EF DBContext (Oracle Bug #24732001).
+- EFCore: SQL syntax error when using Contains in where predicate for a linq query (Oracle Bug #24797524).
+- EFCore: Ensure ConcurrencyToken attribute is supported with MySQL provider.
+
+
+7.0.5
+- Added fallback to SSL connections.
+- MySqlX: Added ssl-enable and ssl-ca uri options for SSL connections.
+
+
+7.0.4
+- MySqlX: Added Table.IsView property to support Views.
+- MySqlX: Fixed Collection.Add() when DbDoc contains an array (Oracle Bug #23542031).
+- MySqlX: Fixed adding empty array in Collection (Oracle Bug #23542066).
+- MySqlX: Flexible Parameter Lists.
+- NETCore: Added .Net Core 1.0 support in MySql.Data.
+- Entity Framework Core: Added support for Entity Framework Core in MySQL.Data.EntityFrameworkCore (includes support for .Net 4.5.1).
+
+
+7.0.3
+- Added support for TLSv1.1 and TLSv1.2
+- MySqlX: Added Result to Commit() and Rollback() Session methods in order to be able to read Warnings.
+- MySqlX: Fixed binary collations as strings instead of bytes.
+- MySqlX: Replace the use of "@" for "$" in JSON path expressions.
+- MySqlX: Added support for TLSv1.0
+
+
+7.0.2
+- Support for MySqlX.Session and NodeSession objects in new Dev API.
+- Support for Collection and Documents objects new Dev API.
+- Support for Relational tables in new Dev API.
+- Support for Transactions in new Dev API.
